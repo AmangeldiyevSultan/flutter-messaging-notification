@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "744821747575",
+    "project_id": "flutter-messaging-notifi-8c04a",
+    "storage_bucket": "flutter-messaging-notifi-8c04a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:744821747575:android:88e3dbe08be55dfbae3b72",
+        "android_client_info": {
+          "package_name": "com.example.flutter_firebase_messaging"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCy86zJW2HU0JuhyG7JOxHwLKu2weTS420"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

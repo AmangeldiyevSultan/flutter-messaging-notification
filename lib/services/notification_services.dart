@@ -1,15 +1,18 @@
 import 'dart:math';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_messaging/main.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationServices {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
-
   void requestNotificationPermission() async {
+    FirebaseMessaging.onBackgroundMessage(firebaseMesBack);
+
     NotificationSettings settings = await messaging.requestPermission(
       alert: true,
       announcement: true,
@@ -21,7 +24,13 @@ class NotificationServices {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('user granted permission');
+      if (kDebugMode) {
+        print('user granted permission');
+      }
+
+      getDeviceToken().then((value) {
+        print('device token\n' + value);
+      });
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
       print('user granted provisional permission');
@@ -46,6 +55,7 @@ class NotificationServices {
   }
 
   void firebaseInit() {
+    print('init');
     FirebaseMessaging.onMessage.listen((event) {
       showNotification(event);
     });
@@ -90,20 +100,8 @@ class NotificationServices {
     });
   }
 
-  void isTokenRefresh() async {
-    messaging.onTokenRefresh.listen((event) {
-      event.toString();
-      print('refresh');
-    });
-  }
-
   Future<String> getDeviceToken() async {
     String? token = await messaging.getToken();
-    return token!;
-  }
-
-  Future<String> getAPNDeviceToken() async {
-    String? token = await messaging.getAPNSToken();
     return token!;
   }
 }
